@@ -13,7 +13,7 @@ public class Email {
 			email.setCharset("UTF-8");
 			email.addTo(emailaddress);// 收件地址
  
-			email.setFrom("1269412851@qq.com", "YWQ");//此处填邮箱地址和用户名,用户名可以任意填写
+			email.setFrom("1269412851@qq.com", "olt.wapin.xin");//此处填邮箱地址和用户名,用户名可以任意填写
  
 			email.setAuthentication("1269412851@qq.com", "huruslnlbitcideh");//此处填写邮箱地址和客户端授权码
  
