@@ -17,7 +17,7 @@ public class Email {
  
 			email.setAuthentication("1269412851@qq.com", "huruslnlbitcideh");//此处填写邮箱地址和客户端授权码
  
-			email.setSubject("YWQ");//此处填写邮件名，邮件名可任意填写
+			email.setSubject("TaPin在线考试系统验证码");//此处填写邮件名，邮件名可任意填写
 			email.setMsg("尊敬的用户您好,您本次的验证码是：" + code);//此处填写邮件内容
  
 			email.send();
