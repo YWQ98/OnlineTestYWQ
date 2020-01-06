@@ -121,7 +121,10 @@
 									<tr>
 										<td><input type="submit" value="修改状态"/></td>
 										<td><a href="${pageContext.request.contextPath }/teacher/manage/checkoutEPScore?eid=${pep.getEid() }">查看成绩</a></td>
-										
+									</tr>
+									<tr>
+										<td>操作</td>
+										<td><a href="${pageContext.request.contextPath }/teacher/manage/copyEX?eid=${pep.getEid() }">复制该试卷</a></td>
 									</tr>
 								</table>
 							</a>

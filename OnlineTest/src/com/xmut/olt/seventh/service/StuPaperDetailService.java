@@ -39,7 +39,7 @@ public class StuPaperDetailService {
 	}
 	@Modifying
 	@Transactional
-	public boolean deleteStuPaperDetail(StuPaper spid) 
+	public Boolean deleteStuPaperDetail(StuPaper spid) //根据外键删除试卷详情表相关字段
 	{
 		boolean b=false;
 		

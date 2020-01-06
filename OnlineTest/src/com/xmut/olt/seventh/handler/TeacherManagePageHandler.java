@@ -70,6 +70,29 @@ public class TeacherManagePageHandler {
 	private StuPaperDetailService stuPaperDetailService;
 	
 	
+	@RequestMapping("/copyEX")//复制试卷重新出题
+	public String copyEX(Integer eid,Map<String, Object> map,HttpSession session) throws Exception {
+		String view=StaticPage.TEACHERPAPLE;
+		Teacher teacher = (Teacher) session.getAttribute("teacher");
+		if(teacher==null) 
+		{
+			view=StaticPage.TEACHERLOGINPAGE;
+			if(session.getAttribute("publicKey")==null) //秘钥生成
+			{
+				Map<String, Key> keyMap=RSACoder.initKey();
+				session.setAttribute("keyMap", keyMap);
+				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+			}
+		}else {
+			EPaper byeid = ePaperService.getByeid(eid);
+			Page<EPaperDetail> finallEPaperDetail = ePaperDetailService.finallEPaperDetail(byeid);
+			map.put("subject", subjectService.findAll());
+			map.put("EPaper", byeid);
+			map.put("EPaperDetail", finallEPaperDetail);
+		}
+		return view;
+	}
+	
 	@RequestMapping("/checkoutex")//查看学生得分详情
 	public String checkoutex(Integer spid,String snum,String sname,Map<String, Object> map,HttpSession session) throws Exception {
 		String view=StaticPage.TEACHERCHECKOUTEX;
@@ -570,8 +593,9 @@ public class TeacherManagePageHandler {
 				session.setAttribute("keyMap", keyMap);
 				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
 			}
+		}else {
+			map.put("subject", subjectService.findAll());
 		}
-		map.put("subject", subjectService.findAll());
 		return view;
 	}
 	

@@ -339,7 +339,7 @@
 								<nav class="navbar navbar-default" id="add_paple_tips">
 									<div class="form-group">
 										<label style="display:inline">试卷名称(唯一，学生可以通过该名称添加试卷)</label>
-										<input id="paplename11" name="paplename" type="text" class="form-control" placeholder="试卷名称">
+										<input value="${EPaper.getEname() }" id="paplename11" name="paplename" type="text" class="form-control" placeholder="试卷名称">
 										<label style="display:inline">试卷状态(任何状态学生都可以添加试卷)</label>
 										<select name="estate">
 											<option value="0">保存但不能考试不能查看成绩</option>
@@ -347,12 +347,93 @@
 											<option value="2">保存但不能考试能查看成绩</option>
 										</select><br/>
 										<label style="display:inline">考试时长(单位:分钟)</label>
-										<input id="ttl11" name="ttl" type="text"  onkeyup="this.value=this.value.replace(/[^0-9.]+/,'');" class="form-control" placeholder="考试时长">
+										<input value="${EPaper.getEttl() }" id="ttl11" name="ttl" type="text"  onkeyup="this.value=this.value.replace(/[^0-9.]+/,'');" class="form-control" placeholder="考试时长">
 										<label style="display:inline">试卷分值</label>
-										<span id="paple_score">0</span>分
+										<span id="paple_score">${EPaper.getEscore() }</span>分
 										<input id="paple_score1" type="hidden" name="paple_score"/>
 									</div>
 								</nav>
+								<!-- 
+									"<div id='additem11'>"+$(this).parent().prop('firstChild').nodeValue+"<br/>"
+									+$(this).parent().children("#chil11").html()+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>删除</a><br/><input type='hidden' id='addpapleqiid' name='addpapleqiid' value='"+$papleqiid+"' /><br></div>";
+								 -->
+								<div id="chose_item">
+									<!-- 新增单选题 -->
+									<h4>I.单选题</h4>
+									<div id="items1">
+									
+									<c:if test="${EPaperDetail!=null }">
+									<c:forEach items="${EPaperDetail.getContent() }" var="epd">
+									<c:if test="${epd.getqItem().getsType().getqType().getQtid()==1 }">
+									
+										<div id='additem11'>问题：${epd.getqItem().getQiname() }<br/>
+										分值：<span id='chil22'>${epd.getqItem().getQiscore() }</span>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>删除</a><br/><input type='hidden' id='addpapleqiid' name='addpapleqiid' value='${epd.getqItem().getQiid()}' /><br></div>
+										
+									</c:if>
+									</c:forEach>
+									</c:if>
+										
+									</div>
+									
+									<hr>
+									<!-- Modal -->
+									
+
+									<!-- 新增多选题 -->
+									<h4>II.多选题</h4>
+									<div id="items2">
+									
+										<c:if test="${EPaperDetail!=null }">
+										<c:forEach items="${EPaperDetail.getContent() }" var="epd">
+										<c:if test="${epd.getqItem().getsType().getqType().getQtid()==2 }">
+											
+											<div id='additem11'>问题：${epd.getqItem().getQiname() }<br/>
+											分值：<span id='chil22'>${epd.getqItem().getQiscore() }</span>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>删除</a><br/><input type='hidden' id='addpapleqiid' name='addpapleqiid' value='${epd.getqItem().getQiid()}' /><br></div>
+										
+										</c:if>
+										</c:forEach>
+										</c:if>
+									</div>
+									<hr />
+								
+
+									<!-- 新增判断题 -->
+									<h4>III.判断题</h4>
+									<div id="items3">
+										<c:if test="${EPaperDetail!=null }">
+										<c:forEach items="${EPaperDetail.getContent() }" var="epd">
+										<c:if test="${epd.getqItem().getsType().getqType().getQtid()==3 }">
+											
+											<div id='additem11'>问题：${epd.getqItem().getQiname() }<br/>
+											分值：<span id='chil22'>${epd.getqItem().getQiscore() }</span>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>删除</a><br/><input type='hidden' id='addpapleqiid' name='addpapleqiid' value='${epd.getqItem().getQiid()}' /><br></div>
+										
+										</c:if>
+										</c:forEach>
+										</c:if>
+										
+									</div>
+									<hr />
+									
+									<h4>IV.简答题</h4>
+									<div id="items4">
+									
+										<c:if test="${EPaperDetail!=null }">
+										<c:forEach items="${EPaperDetail.getContent() }" var="epd">
+										<c:if test="${epd.getqItem().getsType().getqType().getQtid()==4 }">
+											
+											<div id='additem11'>问题：${epd.getqItem().getQiname() }<br/>
+											分值：<span id='chil22'>${epd.getqItem().getQiscore() }</span>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>删除</a><br/><input type='hidden' id='addpapleqiid' name='addpapleqiid' value='${epd.getqItem().getQiid()}'/><br></div>
+										
+										</c:if>
+										</c:forEach>
+										</c:if>	
+										
+									</div>
+									<hr />
+									
+
+								</div>
+								<%-- <c:if test="${EPaperDetail==null }">
 								<div id="chose_item">
 									<!-- 新增单选题 -->
 									<h4>I.单选题</h4>
@@ -391,6 +472,7 @@
 									
 
 								</div>
+								</c:if> --%>
 								<div id="chose_items">
 									<div id="X">
 									
