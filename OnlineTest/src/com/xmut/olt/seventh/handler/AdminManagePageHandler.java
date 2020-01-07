@@ -1,9 +1,7 @@
 package com.xmut.olt.seventh.handler;
 
 
-import java.security.Key;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +16,6 @@ import com.google.gson.Gson;
 import com.xmut.olt.seventh.entity.Student;
 import com.xmut.olt.seventh.entity.Teacher;
 import com.xmut.olt.seventh.page.StaticPage;
-import com.xmut.olt.seventh.tool.RSACoder;
 import com.xmut.olt.seventh.service.StudentService;
 import com.xmut.olt.seventh.service.TeacherService;
 
@@ -178,12 +175,12 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		return view;
 	}
@@ -196,12 +193,12 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		return view;
 	}
@@ -217,12 +214,12 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		return view;
 	}
@@ -237,12 +234,12 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		return view;
 	}
@@ -257,12 +254,12 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		return view;
 	}
