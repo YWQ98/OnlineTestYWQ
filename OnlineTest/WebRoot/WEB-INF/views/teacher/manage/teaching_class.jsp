@@ -108,7 +108,7 @@
 										<td><fmt:formatDate  pattern="yyyy-MM-dd HH:mm:ss" value="${pep.getEcreatedate() }"/></td>
 									</tr>
 									<tr>
-										<td>状态</td>
+										<td><input type="submit" value="修改状态"/></td>
 										<td>
 										<input type="hidden" name="eid" value="${pep.getEid() }"/>
 											<select name="estate">
@@ -119,13 +119,26 @@
 										</td>
 									</tr>
 									<tr>
-										<td><input type="submit" value="修改状态"/></td>
+										<td>操作</td>
 										<td><a href="${pageContext.request.contextPath }/teacher/manage/checkoutEPScore?eid=${pep.getEid() }">查看成绩</a></td>
 									</tr>
 									<tr>
 										<td>操作</td>
 										<td><a href="${pageContext.request.contextPath }/teacher/manage/copyEX?eid=${pep.getEid() }">复制该试卷</a></td>
 									</tr>
+									<c:if test="${pep.getPofstate()==12 }">
+										<tr>
+											<td>归档</td>
+											<td><a href="${pageContext.request.contextPath }/teacher/manage/pofEX?eid=${pep.getEid() }">归档</a></td>
+										</tr>
+									</c:if>
+									
+									<c:if test="${pep.getPofstate()==21 }">
+										<tr>
+											<td>归档</td>
+											<td><a href="${pageContext.request.contextPath }/teacher/manage/pofEX?eid=${pep.getEid() }">取消归档</a></td>
+										</tr>
+									</c:if>
 								</table>
 							</a>
 						</div>

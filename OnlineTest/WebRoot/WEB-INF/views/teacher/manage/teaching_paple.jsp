@@ -349,8 +349,11 @@
 										<label style="display:inline">考试时长(单位:分钟)</label>
 										<input value="${EPaper.getEttl() }" id="ttl11" name="ttl" type="text"  onkeyup="this.value=this.value.replace(/[^0-9.]+/,'');" class="form-control" placeholder="考试时长">
 										<label style="display:inline">试卷分值</label>
-										<span id="paple_score">${EPaper.getEscore() }</span>分
-										<input id="paple_score1" type="hidden" name="paple_score"/>
+										<span id="paple_score">
+										<c:if test="${EPaper.getEscore()!=null }">${EPaper.getEscore() }</c:if>
+										<c:if test="${EPaper.getEscore()==null }">0</c:if>
+										</span>分
+										<input value="${EPaper.getEscore() }" id="paple_score1" type="hidden" name="paple_score"/>
 									</div>
 								</nav>
 								<!-- 

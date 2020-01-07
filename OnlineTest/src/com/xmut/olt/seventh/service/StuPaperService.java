@@ -24,6 +24,8 @@ public class StuPaperService {
 
 	@Autowired
 	private StuPaperRepository stuPaperRepository;
+	@Autowired
+	private StuPaperDetailService stuPaperDetailService;
 	public StuPaper save(StuPaper stuPaper) 
 	{
 		return stuPaperRepository.saveAndFlush(stuPaper);
@@ -44,11 +46,12 @@ public class StuPaperService {
 	}
 	@Modifying
 	@Transactional
-	public boolean deleteStuPaper(Integer spid) 
+	public boolean deleteStuPaper(StuPaper byspid) 
 	{
+		stuPaperDetailService.deleteStuPaperDetail(byspid);
 		boolean b=false;
-		if(spid!=null) {
-			stuPaperRepository.delete(spid);
+		if(byspid!=null) {
+			stuPaperRepository.delete(byspid.getSpid());
 			b=true;
 		}
 		return b;

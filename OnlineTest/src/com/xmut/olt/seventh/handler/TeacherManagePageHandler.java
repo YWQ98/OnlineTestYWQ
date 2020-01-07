@@ -70,6 +70,47 @@ public class TeacherManagePageHandler {
 	private StuPaperDetailService stuPaperDetailService;
 	
 	
+	
+	
+	@RequestMapping("/pofEX")//归档操作
+	public String pofEX(Integer eid,Map<String, Object> map,HttpSession session) throws Exception 
+	{
+		String view=StaticPage.TEACHERMAINPAGE;
+		Teacher teacher = (Teacher) session.getAttribute("teacher");
+		EPaper byeid = ePaperService.getByeid(eid);
+		String estate=null;
+		if(byeid!=null) {
+			estate =byeid.getEstate();
+		}
+		if(teacher==null) 
+		{
+			view=StaticPage.TEACHERLOGINPAGE;
+			if(session.getAttribute("publicKey")==null) //秘钥生成
+			{
+				Map<String, Key> keyMap=RSACoder.initKey();
+				session.setAttribute("keyMap", keyMap);
+				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+			}
+		}else {
+			if(byeid!=null && !estate.equals("") && byeid.getPofstate().equals("12")) 
+			{
+				byeid.setPofstate("21");
+				byeid.setEstate(estate);
+				ePaperService.save(byeid);
+			}
+			else 
+			{
+				byeid.setPofstate("12");
+				byeid.setEstate(estate);
+				ePaperService.save(byeid);
+			}
+			Page<EPaper> findPagEPapers = ePaperService.findPagEPapers(teacher, 1);
+			map.put("PagEPapers", findPagEPapers);
+		}
+		return view;
+	}
+	
+	
 	@RequestMapping("/copyEX")//复制试卷重新出题
 	public String copyEX(Integer eid,Map<String, Object> map,HttpSession session) throws Exception {
 		String view=StaticPage.TEACHERPAPLE;
@@ -338,6 +379,7 @@ public class TeacherManagePageHandler {
 			if(ePaperService.getByename(paplename)==null && addpapleqiid!=null && ttl!=null && !paplename.equals("")) 
 			{
 				EPaper ePaper=new EPaper(paplename, paple_score, estate, ttl, teacher, new Date());
+				ePaper.setPofstate("12");//新增归档状态码
 				ePaperService.save(ePaper);
 				String[] split = addpapleqiid.split(",");
 //				System.out.println(ePaper);

@@ -21,6 +21,7 @@ public class EPaper {
 	private String ename;//试卷名称--唯一--学生可通过这个添加试卷
 	private Integer escore;//试卷总分
 	private String estate;//试卷状态 0--代表可以考试   1--代表结束考试且学生可以查看自己的成绩
+	private String pofstate;//归档状态place on file  12--为未归档
 	private Integer ettl;//考试时长
 	private Teacher teacher;//谁出的试卷
 	private Date ecreatedate;//试卷创建的时间
@@ -34,6 +35,14 @@ public class EPaper {
 		this.eid = eid;
 	}
 	
+	
+	@Column(length=2)
+	public String getPofstate() {
+		return pofstate;
+	}
+	public void setPofstate(String pofstate) {
+		this.pofstate = pofstate;
+	}
 	@Column(nullable=false,unique=true)
 	public String getEname() {
 		return ename;
@@ -94,9 +103,10 @@ public class EPaper {
 	}
 	@Override
 	public String toString() {
-		return "EPaper [eid=" + eid + ", ename=" + ename + ", escore=" + escore + ", estate=" + estate + ", ettl="
-				+ ettl + ", teacher=" + teacher + ", ecreatedate=" + ecreatedate + "]";
+		return "EPaper [eid=" + eid + ", ename=" + ename + ", escore=" + escore + ", estate=" + estate + ", pofstate="
+				+ pofstate + ", ettl=" + ettl + ", teacher=" + teacher + ", ecreatedate=" + ecreatedate + "]";
 	}
+	
 	
 	
 

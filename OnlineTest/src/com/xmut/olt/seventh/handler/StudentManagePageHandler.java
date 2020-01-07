@@ -129,8 +129,8 @@ public class StudentManagePageHandler {
 		{
 			System.out.println(spid);
 			StuPaper byspid = stuPaperService.getByspid(spid);
-			stuPaperDetailService.deleteStuPaperDetail(byspid);
-			stuPaperService.deleteStuPaper(spid);
+//			stuPaperDetailService.deleteStuPaperDetail(byspid);
+			stuPaperService.deleteStuPaper(byspid);
 			map.put("msg", "删除成功！！！");
 		}
 		Page<StuPaper> finAll = stuPaperService.finAll(student);
@@ -269,7 +269,9 @@ public class StudentManagePageHandler {
 //				System.out.println(list);
 //				System.out.println(answerlist);
 //				System.out.println(findStuPaper.getContent());
-				map.put("endtime", stuPaper.getDate().toString().subSequence(0, stuPaper.getDate().toString().length()-2));
+				if(stuPaper.getDate()!=null) {
+					map.put("endtime", stuPaper.getDate().toString().subSequence(0, stuPaper.getDate().toString().length()-2));
+				}
 			}else {
 				map.put("msg", "试卷名称："+ename+"---此试卷还不能查看成绩！！！");
 			}
@@ -474,13 +476,17 @@ public class StudentManagePageHandler {
 		}else if(!paperName.equals(""))
 		{
 			EPaper ePaper = ePaperService.getByename(paperName);
-			StuPaper stuPaper=new StuPaper(0, ePaper, student);
-			stuPaperService.save(stuPaper);//保存基本信息
-			Page<EPaperDetail> finallEPaperDetail = ePaperDetailService.finallEPaperDetail(ePaper);
-			for (EPaperDetail ePaperDetail : finallEPaperDetail) {
-				QItem qItem = ePaperDetail.getqItem();
-				StuPaperDetail stuPaperDetail=new StuPaperDetail("", 0, qItem, stuPaper);
-				stuPaperDetailService.save(stuPaperDetail);
+			if(ePaper.getPofstate().equals("12")) {//归档试卷无法添加   12才能添加试卷
+				StuPaper stuPaper=new StuPaper(0, ePaper, student);
+				stuPaperService.save(stuPaper);//保存基本信息
+				Page<EPaperDetail> finallEPaperDetail = ePaperDetailService.finallEPaperDetail(ePaper);
+				for (EPaperDetail ePaperDetail : finallEPaperDetail) {
+					QItem qItem = ePaperDetail.getqItem();
+					StuPaperDetail stuPaperDetail=new StuPaperDetail("", 0, qItem, stuPaper);
+					stuPaperDetailService.save(stuPaperDetail);
+				}
+			}else {
+				map.put("msg", "试卷名称："+ePaper.getEname()+"---此试卷已被归档无法添加！！！");
 			}
 		}
 		if(student!=null) 
