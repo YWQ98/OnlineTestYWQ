@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xmut.olt.seventh.email.Email;
 import com.xmut.olt.seventh.entity.Student;
 import com.xmut.olt.seventh.page.StaticPage;
-import com.xmut.olt.seventh.tool.RSACoder;
 import com.xmut.olt.seventh.service.StudentService;
 
 @Controller
@@ -160,13 +159,13 @@ public class StudentHandler {
 		session.removeAttribute("admin");//登录学生账号退出其他角色账号
 		session.removeAttribute("teacher");
 		
-		if(session.getAttribute("publicKey")==null) //秘钥生成
-		{
-			//生成秘钥
-			Map<String, Key> keyMap=RSACoder.initKey();
-			session.setAttribute("keyMap", keyMap);
-			session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-		}
+//		if(session.getAttribute("publicKey")==null) //秘钥生成
+//		{
+//			//生成秘钥
+//			Map<String, Key> keyMap=RSACoder.initKey();
+//			session.setAttribute("keyMap", keyMap);
+//			session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//		}
 		if(session.getAttribute("student")!=null) //已登录账号直接跳转后台页面
 		{
 			view=StaticPage.STUDENTMAINPAGE;

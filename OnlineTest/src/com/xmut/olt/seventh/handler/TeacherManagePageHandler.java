@@ -1,6 +1,5 @@
 package com.xmut.olt.seventh.handler;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +27,6 @@ import com.xmut.olt.seventh.entity.StuPaperDetail;
 import com.xmut.olt.seventh.entity.Subject;
 import com.xmut.olt.seventh.entity.Teacher;
 import com.xmut.olt.seventh.page.StaticPage;
-import com.xmut.olt.seventh.tool.RSACoder;
 import com.xmut.olt.seventh.service.AnswerService;
 import com.xmut.olt.seventh.service.EPaperDetailService;
 import com.xmut.olt.seventh.service.EPaperService;
@@ -85,12 +83,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			if(byeid!=null && !estate.equals("") && byeid.getPofstate().equals("12")) 
 			{
@@ -118,12 +116,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			EPaper byeid = ePaperService.getByeid(eid);
 			Page<EPaperDetail> finallEPaperDetail = ePaperDetailService.finallEPaperDetail(byeid);
@@ -141,12 +139,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			StuPaper stuPaper = stuPaperService.getByspid(spid);
 			List<Option> list=new ArrayList<Option>();
@@ -179,12 +177,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			EPaper byeid = ePaperService.getByeid(eid);
 			Page<StuPaper> finAllStuPaper = stuPaperService.finAllStuPaper(byeid);
@@ -204,12 +202,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			Subject bysjid = subjectService.getBysjid(autosjid);
 			if(bysjid!=null) 
@@ -369,12 +367,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			if(ePaperService.getByename(paplename)==null && addpapleqiid!=null && ttl!=null && !paplename.equals("")) 
 			{
@@ -441,12 +439,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			SType findOneSType = sTypeService.findOneSType(Integer.valueOf(qtid), Integer.valueOf(sjid));
 			String op[]= {"A","B","C","D"};
@@ -596,12 +594,12 @@ public class TeacherManagePageHandler {
 		if(session.getAttribute("teacher")==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			Subject bysjname = subjectService.getBysjname(sjname);
 			if(bysjname==null && sjname!="") 
@@ -629,12 +627,12 @@ public class TeacherManagePageHandler {
 		if(session.getAttribute("teacher")==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			map.put("subject", subjectService.findAll());
 		}
@@ -651,12 +649,12 @@ public class TeacherManagePageHandler {
 		if(session.getAttribute("teacher")==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		else 
 		{
@@ -674,12 +672,12 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			if(eid!=null && !estate.equals("")) 
 			{

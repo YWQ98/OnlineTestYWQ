@@ -1,6 +1,5 @@
 ﻿package com.xmut.olt.seventh.handler;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,12 +21,10 @@ import com.xmut.olt.seventh.entity.EPaper;
 import com.xmut.olt.seventh.entity.EPaperDetail;
 import com.xmut.olt.seventh.entity.Option;
 import com.xmut.olt.seventh.entity.QItem;
-import com.xmut.olt.seventh.entity.SType;
 import com.xmut.olt.seventh.entity.StuPaper;
 import com.xmut.olt.seventh.entity.StuPaperDetail;
 import com.xmut.olt.seventh.entity.Student;
 import com.xmut.olt.seventh.page.StaticPage;
-import com.xmut.olt.seventh.tool.RSACoder;
 import com.xmut.olt.seventh.service.AnswerService;
 import com.xmut.olt.seventh.service.EPaperDetailService;
 import com.xmut.olt.seventh.service.EPaperService;
@@ -119,12 +116,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else
 		{
 			System.out.println(spid);
@@ -150,12 +147,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else if(newemail!=null&&newrandomChar!=null&&oldrandomChar!=null)
 		{
 			if(newrandomChar.equals(newemailcode) && oldrandomChar.equals(oldemailcode)) {
@@ -203,19 +200,20 @@ public class StudentManagePageHandler {
 		String view=StaticPage.STUDENTMAINPAGE;
 		Student student=(Student) session.getAttribute("student");
 		
-		if(sname.equals("")) {
-			sname=student.getsName();
-		}
+		
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
+			if(sname.equals("")) {
+				sname=student.getsName();
+			}
 			student.setsGender(ssex);
 			student.setsIntroduction(sintroduction);
 			student.setsName(sname);
@@ -235,12 +233,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else if(!ename.equals(""))
 		{
 			EPaper byename = ePaperService.getByename(ename);
@@ -382,12 +380,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else if(!ename.equals(""))
 		{
 			EPaper byename = ePaperService.getByename(ename);
@@ -467,12 +465,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else if(!paperName.equals(""))
 		{
 			EPaper ePaper = ePaperService.getByename(paperName);
@@ -501,7 +499,7 @@ public class StudentManagePageHandler {
 	
 	@ResponseBody
 	@RequestMapping(value="/searchPaper",produces = "application/json; charset=utf-8")
-	public String searchPaper(String paperName,HttpSession session) throws Exception 
+	public String searchPaper(String paperName) throws Exception 
 	{
 		String str="";
 		
@@ -523,12 +521,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		
 		return view;
@@ -542,12 +540,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}else {
 			Page<StuPaper> finAll = stuPaperService.finAll(student);
 			map.put("studentPage", finAll);
@@ -564,12 +562,12 @@ public class StudentManagePageHandler {
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
-			if(session.getAttribute("publicKey")==null) //秘钥生成
-			{
-				Map<String, Key> keyMap=RSACoder.initKey();
-				session.setAttribute("keyMap", keyMap);
-				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-			}
+//			if(session.getAttribute("publicKey")==null) //秘钥生成
+//			{
+//				Map<String, Key> keyMap=RSACoder.initKey();
+//				session.setAttribute("keyMap", keyMap);
+//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
+//			}
 		}
 		
 		return view;
