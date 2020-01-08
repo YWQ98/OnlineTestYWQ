@@ -71,6 +71,22 @@ public class StuPaperService {
 		};
 		return stuPaperRepository.findAll(specification, pageRequest);
 	}
+	
+	@Transactional(readOnly=true)//获取一个学生的试卷
+	public Page<StuPaper> getByePaperOne(final EPaper ePaper,Integer page) 
+	{
+		PageRequest pageRequest=new PageRequest(page-1, 1);
+		Specification<StuPaper> specification=new Specification<StuPaper>() {
+			
+			@Override
+			public Predicate toPredicate(Root<StuPaper> arg0, CriteriaQuery<?> arg1, CriteriaBuilder arg2) {
+				Path<String> path=arg0.get("ePaper");
+				return arg2.equal(path, ePaper);
+			}
+		};
+		return stuPaperRepository.findAll(specification, pageRequest);
+	}
+	
 	@Transactional(readOnly=true)
 	public StuPaper getByspid(Integer spid) 
 	{

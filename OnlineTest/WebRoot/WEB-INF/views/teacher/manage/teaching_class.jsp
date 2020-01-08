@@ -139,6 +139,10 @@
 											<td><a href="${pageContext.request.contextPath }/teacher/manage/pofEX?eid=${pep.getEid() }">取消归档</a></td>
 										</tr>
 									</c:if>
+									<tr>
+										<td>操作</td>
+										<td><a href="${pageContext.request.contextPath }/teacher/manage/changeScore?eid=${pep.getEid() }">改卷(简答题)</a></td>
+									</tr>
 								</table>
 							</a>
 						</div>

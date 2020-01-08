@@ -54,6 +54,21 @@ public class StuPaperDetailService {
 		
 		return b;
 	}
+	@Transactional
+	public Page<StuPaperDetail> getBystuPaperDetailOne(final StuPaper stuPaper,Integer page) 
+	{
+		PageRequest pageRequest=new PageRequest(page-1, 999);
+		Specification<StuPaperDetail> specification=new Specification<StuPaperDetail>() {
+			
+			@Override
+			public Predicate toPredicate(Root<StuPaperDetail> arg0, CriteriaQuery<?> arg1, CriteriaBuilder arg2) {
+				Path<String> path=arg0.get("stuPaper");
+				return arg2.equal(path, stuPaper);
+			}
+		};
+		return stuPaperDetailRepository.findAll(specification, pageRequest);
+	}
+	@Transactional
 	public StuPaperDetail save(StuPaperDetail stuPaperDetail) 
 	{
 		return stuPaperDetailRepository.saveAndFlush(stuPaperDetail);

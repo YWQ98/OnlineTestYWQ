@@ -159,13 +159,6 @@ public class StudentHandler {
 		session.removeAttribute("admin");//登录学生账号退出其他角色账号
 		session.removeAttribute("teacher");
 		
-//		if(session.getAttribute("publicKey")==null) //秘钥生成
-//		{
-//			//生成秘钥
-//			Map<String, Key> keyMap=RSACoder.initKey();
-//			session.setAttribute("keyMap", keyMap);
-//			session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//		}
 		if(session.getAttribute("student")!=null) //已登录账号直接跳转后台页面
 		{
 			view=StaticPage.STUDENTMAINPAGE;

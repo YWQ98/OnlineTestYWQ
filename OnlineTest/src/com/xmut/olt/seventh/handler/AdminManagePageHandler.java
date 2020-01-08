@@ -175,12 +175,6 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}
 		return view;
 	}
@@ -193,12 +187,6 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}
 		return view;
 	}
@@ -214,12 +202,6 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}
 		return view;
 	}
@@ -234,12 +216,6 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}
 		return view;
 	}
@@ -254,12 +230,6 @@ public class AdminManagePageHandler {
 		if(session.getAttribute("admin")==null) 
 		{
 			view=StaticPage.ADMINLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}
 		return view;
 	}

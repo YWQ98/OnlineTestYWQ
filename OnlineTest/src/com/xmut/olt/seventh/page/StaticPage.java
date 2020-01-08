@@ -54,6 +54,8 @@ public final class StaticPage {
 	public static final String TEACHERCHECKOUTEPAPER="teacher/manage/teaching_checkoutepaper";//教师查看成绩
 	//教师查看学生得分详情
 	public static final String TEACHERCHECKOUTEX="/teacher/manage/thcheckoutex";
+	//教师改试卷
+	public static final String TEACHERCHANGE="/teacher/manage/changeScore";
 	
 	
 

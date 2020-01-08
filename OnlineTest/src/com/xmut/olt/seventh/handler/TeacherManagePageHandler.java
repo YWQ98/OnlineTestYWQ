@@ -1,5 +1,7 @@
 package com.xmut.olt.seventh.handler;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +40,7 @@ import com.xmut.olt.seventh.service.StuPaperDetailService;
 import com.xmut.olt.seventh.service.StuPaperService;
 import com.xmut.olt.seventh.service.SubjectService;
 import com.xmut.olt.seventh.tool.AutoEPaper;
+import com.xmut.olt.seventh.tool.IsNumeric;
 
 @Controller
 @RequestMapping("/teacher/manage")
@@ -67,8 +70,107 @@ public class TeacherManagePageHandler {
 	@Autowired
 	private StuPaperDetailService stuPaperDetailService;
 	
+	@ResponseBody
+	@RequestMapping(value="/changeScoreSave",produces = "application/json; charset=utf-8")//改卷--保存成绩
+	public String changeScoreSave(String dataspdid,String datascore,Map<String, Object> map,HttpSession session) throws Exception {
+		String str="";
+		Teacher teacher = (Teacher) session.getAttribute("teacher");
+		if(teacher==null) 
+		{
+			
+		}else {
+			List<Integer> datascoreList=new ArrayList<Integer>();
+			List<Integer> dataspdidList=new ArrayList<Integer>();
+			if(datascore!=null) {
+				String[] split = datascore.split(",");
+				for (String string : split) {
+					datascoreList.add(Integer.valueOf(string));
+				}
+			}
+			if(dataspdid!=null) {
+				String[] split = dataspdid.split(",");
+				for (String string : split) {
+					dataspdidList.add(Integer.valueOf(string));
+				}
+			}
+			for (int i = 0; i < dataspdidList.size(); i++) {
+				StuPaperDetail byspdid = stuPaperDetailService.getByspdid(dataspdidList.get(i));
+				Integer qiscore = byspdid.getqItem().getQiscore();//题目最高得分
+				if(datascoreList.get(i)<=qiscore) 
+				{
+					Integer score = byspdid.getScore();//现在的分数
+					StuPaper byspid = stuPaperService.getByspid(byspdid.getStuPaper().getSpid());
+					byspid.setSpscore(byspid.getSpscore()-score+datascoreList.get(i));
+					stuPaperService.save(byspid);
+					byspdid.setScore(datascoreList.get(i));
+					stuPaperDetailService.save(byspdid);
+					str="[{\"a\":\"1\"}]";
+				}
+			}
+		}
+		return str;
+	}
 	
-	
+	@RequestMapping("/changeScore")//改卷--简答题
+	public String changeScore(Integer totalPages,Integer page,Integer eid,Map<String, Object> map,HttpSession session) throws Exception {
+		if(totalPages==null) {
+			totalPages=0;
+		}
+		if(page==null) {
+			page=0;
+		}
+		String view=StaticPage.TEACHERCHANGE;
+		Teacher teacher = (Teacher) session.getAttribute("teacher");
+		if(teacher==null) 
+		{
+			view=StaticPage.TEACHERLOGINPAGE;
+		}else {
+			EPaper byeid = ePaperService.getByeid(eid);
+			Page<StuPaper> byePaperOne = stuPaperService.getByePaperOne(byeid, page+1);
+			if(byePaperOne.hasContent()) {
+				StuPaper stuPaper = byePaperOne.getContent().get(0);//获取当前改试卷下的第一个学生试卷
+				totalPages = byePaperOne.getTotalPages();//总共有几页
+				Page<StuPaperDetail> bystuPaperDetailOne = stuPaperDetailService.getBystuPaperDetailOne(stuPaper, 1);
+				List<String> totaList=new ArrayList<String>();//页面遍历用
+				for (StuPaperDetail stuPaperDetail : bystuPaperDetailOne) {
+					if(stuPaperDetail.getqItem().getsType().getqType().getQtid()==4) 
+					{
+						QItem qItem = stuPaperDetail.getqItem();
+						totaList.add("问题："+stuPaperDetail.getqItem().getQiname());
+
+						String answer = answerService.findOneAnswer(qItem).getAnswer();
+						totaList.add("参考答案："+answer);
+						
+						
+						if(stuPaperDetail.getEdanswer()==null) {
+							totaList.add("学生答案："+"学生没有填写答案");
+						}else {
+							totaList.add("学生答案："+stuPaperDetail.getEdanswer());
+						}
+						
+						totaList.add("得分不超过："+stuPaperDetail.getqItem().getQiscore()+"分");
+						
+						if(stuPaperDetail.getScore()==null) {
+							totaList.add(0+"");
+						}else {
+							totaList.add(stuPaperDetail.getScore()+"");
+						}
+						
+						
+						totaList.add(stuPaperDetail.getSpdid()+"_");
+					}
+				}
+				
+				map.put("page", page);
+				map.put("totalPages", totalPages);
+				map.put("eid", eid);
+				map.put("isNumeric", new IsNumeric());
+				map.put("totaList", totaList.toString().substring(1, totaList.toString().length()-1)+",");
+				System.out.println(totaList.toString().substring(1, totaList.toString().length()-1)+",");
+			}
+		}
+		return view;
+	}
 	
 	@RequestMapping("/pofEX")//归档操作
 	public String pofEX(Integer eid,Map<String, Object> map,HttpSession session) throws Exception 
@@ -83,12 +185,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			if(byeid!=null && !estate.equals("") && byeid.getPofstate().equals("12")) 
 			{
@@ -116,12 +212,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			EPaper byeid = ePaperService.getByeid(eid);
 			Page<EPaperDetail> finallEPaperDetail = ePaperDetailService.finallEPaperDetail(byeid);
@@ -139,12 +229,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			StuPaper stuPaper = stuPaperService.getByspid(spid);
 			List<Option> list=new ArrayList<Option>();
@@ -177,12 +261,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			EPaper byeid = ePaperService.getByeid(eid);
 			Page<StuPaper> finAllStuPaper = stuPaperService.finAllStuPaper(byeid);
@@ -202,12 +280,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			Subject bysjid = subjectService.getBysjid(autosjid);
 			if(bysjid!=null) 
@@ -344,12 +416,6 @@ public class TeacherManagePageHandler {
 //		if(teacher==null) 
 //		{
 //			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 //		}else {
 //			Page<EPaper> findPagEPapers = ePaperService.findPagEPapers(teacher, 1);
 //			map.put("PagEPapers", findPagEPapers);
@@ -367,12 +433,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			if(ePaperService.getByename(paplename)==null && addpapleqiid!=null && ttl!=null && !paplename.equals("")) 
 			{
@@ -439,12 +499,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			SType findOneSType = sTypeService.findOneSType(Integer.valueOf(qtid), Integer.valueOf(sjid));
 			String op[]= {"A","B","C","D"};
@@ -542,12 +596,6 @@ public class TeacherManagePageHandler {
 //		if(teacher==null) 
 //		{
 //			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 //		}else {
 //			SType findOneSType = sTypeService.findOneSType(Integer.valueOf(qtid), Integer.valueOf(sjid));
 //			if(!qtid.equals("4")) 
@@ -594,12 +642,6 @@ public class TeacherManagePageHandler {
 		if(session.getAttribute("teacher")==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			Subject bysjname = subjectService.getBysjname(sjname);
 			if(bysjname==null && sjname!="") 
@@ -627,12 +669,6 @@ public class TeacherManagePageHandler {
 		if(session.getAttribute("teacher")==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			map.put("subject", subjectService.findAll());
 		}
@@ -649,12 +685,6 @@ public class TeacherManagePageHandler {
 		if(session.getAttribute("teacher")==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}
 		else 
 		{
@@ -672,12 +702,6 @@ public class TeacherManagePageHandler {
 		if(teacher==null) 
 		{
 			view=StaticPage.TEACHERLOGINPAGE;
-//			if(session.getAttribute("publicKey")==null) //秘钥生成
-//			{
-//				Map<String, Key> keyMap=RSACoder.initKey();
-//				session.setAttribute("keyMap", keyMap);
-//				session.setAttribute("publicKey", RSACoder.getPublicKey(keyMap));
-//			}
 		}else {
 			if(eid!=null && !estate.equals("")) 
 			{

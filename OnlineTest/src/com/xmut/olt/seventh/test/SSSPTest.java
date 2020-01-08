@@ -89,6 +89,27 @@ public class SSSPTest {
 	}
 	
 	@Test
+	public void changeScore() {
+		EPaper ePaper = ePaperService.getByeid(53);
+		Page<StuPaper> byePaperOne = stuPaperService.getByePaperOne(ePaper, 1);
+		System.out.println(byePaperOne.hasContent());
+//		if(byePaperOne.getNumber()==0) {
+//			System.out.println("null");
+//		}
+//		else 
+//		{
+//			System.out.println("not null");
+//			System.out.println(byePaperOne.getContent().get(0));
+//		}
+//		StuPaper stuPaper = byePaperOne.getContent().get(0);
+//		System.out.println(byePaperOne.getTotalPages());
+//		Page<StuPaperDetail> bystuPaperOne = stuPaperDetailService.getBystuPaperDetailOne(stuPaper, 1);
+//		for (StuPaperDetail stuPaperDetail : bystuPaperOne) {
+//			System.out.println(stuPaperDetail.getqItem().getsType().getqType().getQtname());
+//		}
+	}
+	
+	@Test
 	public void deletestupaper() {
 		StuPaper byspid = stuPaperService.getByspid(21);
 		boolean deleteStuPaperDetail = stuPaperDetailService.deleteStuPaperDetail(byspid);
@@ -96,9 +117,6 @@ public class SSSPTest {
 		for (StuPaperDetail stuPaperDetail : bystuPaper) {
 			System.out.println(stuPaperDetail.toString());
 		}
-		boolean deleteStuPaper = stuPaperService.deleteStuPaper(21);
-		System.out.println(deleteStuPaperDetail);
-		System.out.println(deleteStuPaper);
 		System.out.println(byspid);
 	}
 	
