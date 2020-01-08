@@ -20,7 +20,7 @@ import com.xmut.olt.seventh.tool.RSACoder;
 @Aspect
 public class TeacherAllHandlerAOP {
 
-	@After("execution(* com.xmut.olt.seventh.handler.TeacherManagePageHandler.*(..)) || execution(* com.xmut.olt.seventh.handler.TeacherHandler.loginRegister(..))")
+	@After("execution(* com.xmut.olt.seventh.handler.TeacherManagePageHandler.*(..)) || execution(* com.xmut.olt.seventh.handler.TeacherHandler.*(..))")
 	public void checkLogin(JoinPoint joinPoint) throws Exception 
 	{
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
