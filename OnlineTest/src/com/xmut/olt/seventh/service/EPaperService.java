@@ -24,6 +24,7 @@ public class EPaperService {
 	@Autowired
 	private EPaperRepository ePaperRepository;
 	
+	@Transactional
 	public EPaper save(EPaper ePaper) 
 	{
 		return ePaperRepository.saveAndFlush(ePaper);

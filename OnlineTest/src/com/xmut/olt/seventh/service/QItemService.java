@@ -24,6 +24,7 @@ public class QItemService {
 	@Autowired
 	private QItemRepository qItemRepository;
 	
+	@Transactional
 	public QItem save(QItem qitem) 
 	{
 		return qItemRepository.save(qitem);

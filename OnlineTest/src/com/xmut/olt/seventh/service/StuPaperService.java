@@ -26,6 +26,7 @@ public class StuPaperService {
 	private StuPaperRepository stuPaperRepository;
 	@Autowired
 	private StuPaperDetailService stuPaperDetailService;
+	@Transactional
 	public StuPaper save(StuPaper stuPaper) 
 	{
 		return stuPaperRepository.saveAndFlush(stuPaper);
@@ -44,7 +45,6 @@ public class StuPaperService {
 		};
 		return stuPaperRepository.findAll(specification, pageRequest);
 	}
-	@Modifying
 	@Transactional
 	public boolean deleteStuPaper(StuPaper byspid) 
 	{

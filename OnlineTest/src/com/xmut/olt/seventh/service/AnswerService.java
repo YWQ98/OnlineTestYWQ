@@ -60,6 +60,8 @@ public class AnswerService {
 		}
 		return answer;
 	}
+	
+	@Transactional
 	public Answer save(Answer answer) 
 	{
 		return answerRepository.save(answer);

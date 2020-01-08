@@ -37,7 +37,6 @@ public class StuPaperDetailService {
 	{
 		return (List<StuPaperDetail>) stuPaperDetailRepository.getBystuPaper(spid);
 	}
-	@Modifying
 	@Transactional
 	public Boolean deleteStuPaperDetail(StuPaper spid) //根据外键删除试卷详情表相关字段
 	{

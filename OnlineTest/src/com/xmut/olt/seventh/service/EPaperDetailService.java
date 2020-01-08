@@ -23,6 +23,7 @@ public class EPaperDetailService {
 	@Autowired
 	private EPaperDetailRepository ePaperDetailRepository;
 	
+	@Transactional
 	public EPaperDetail save(EPaperDetail ePaperDetail) 
 	{
 		return ePaperDetailRepository.save(ePaperDetail);

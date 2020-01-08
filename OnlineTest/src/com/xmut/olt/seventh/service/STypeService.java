@@ -16,6 +16,7 @@ public class STypeService {
 	@Autowired
 	private STypeRepository sTypeRepository;
 	
+	@Transactional
 	public Object save(SType sType) 
 	{
 		return  sTypeRepository.save(sType);

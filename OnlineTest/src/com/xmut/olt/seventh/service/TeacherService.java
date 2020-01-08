@@ -76,12 +76,12 @@ public class TeacherService {
 	{
 		return teacherRepository.getBytNum(tNum);
 	}
-	
+	@Transactional
 	public Object save(Teacher teacher) //修改状态
 	{
 		return	teacherRepository.saveAndFlush(teacher);
 	}
-	
+	@Transactional
 	public Object save(Teacher teacher,Map<String, Key> keyMap) //注册修改密码
 	{
 		if(teacher.gettId()==null) //注册时没有id

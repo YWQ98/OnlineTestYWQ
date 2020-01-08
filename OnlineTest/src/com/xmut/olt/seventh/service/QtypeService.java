@@ -15,6 +15,7 @@ public class QtypeService {
 	@Autowired
 	private QTypeRepository qTypeRepository;
 	
+	@Transactional
 	public Object sava(QType qType) 
 	{
 		return qTypeRepository.saveAndFlush(qType);

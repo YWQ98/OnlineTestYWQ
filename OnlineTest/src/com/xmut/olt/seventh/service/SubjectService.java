@@ -14,6 +14,7 @@ public class SubjectService {
 
 	@Autowired
 	private SubjectRepository subjectRepository;
+	@Transactional
 	public Object save(Subject subject) 
 	{
 		return subjectRepository.save(subject);

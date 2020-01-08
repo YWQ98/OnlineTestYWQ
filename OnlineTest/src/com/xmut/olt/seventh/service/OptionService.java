@@ -23,6 +23,7 @@ public class OptionService {
 	@Autowired
 	private OptionRepository optionRepository;
 	
+	@Transactional
 	public Option save(Option option) 
 	{
 		return  optionRepository.save(option);

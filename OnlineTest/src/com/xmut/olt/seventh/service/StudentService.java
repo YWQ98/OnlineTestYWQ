@@ -28,7 +28,7 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 	
-	@Transactional
+	@Transactional(readOnly=true)
 	public Student getBysName(String sName) 
 	{
 		return studentRepository.getBysName(sName);
@@ -81,12 +81,14 @@ public class StudentService {
 		return studentRepository.getBysNum(sNum);
 	}
 	
+	@Transactional
 	public Object save(Student student) //修改状态
 	{
 		return	studentRepository.saveAndFlush(student);
 	}
 	
 	
+	@Transactional
 	public Object save(Student student,Map<String, Key> keyMap) //注册修改密码
 	{
 		if(student.getsId()==null) //注册时没有id
