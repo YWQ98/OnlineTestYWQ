@@ -105,18 +105,20 @@ public class StudentManagePageHandler {
 	@RequestMapping("/deleteEX")//删除试卷
 	public String deleteEX(Integer spid,HttpSession session,Map<String, Object> map) throws Exception {
 		String view=StaticPage.STUDENTMYCLASS;
-		map.put("msg", "删除失败！！！");
+		map.put("msg", "删除失败(改试卷已归档)！！！");
 		Student student=(Student) session.getAttribute("student");
 		if(student==null) 
 		{
 			view=StaticPage.STUDENTLOGINPAGE;
 		}else
 		{
-			System.out.println(spid);
 			StuPaper byspid = stuPaperService.getByspid(spid);
-//			stuPaperDetailService.deleteStuPaperDetail(byspid);
-			stuPaperService.deleteStuPaper(byspid);
-			map.put("msg", "删除成功！！！");
+			String pofstate = byspid.getePaper().getPofstate();
+			if(!pofstate.equals("21")) {
+	//			stuPaperDetailService.deleteStuPaperDetail(byspid);
+				stuPaperService.deleteStuPaper(byspid);
+				map.put("msg", "删除成功！！！");
+			}
 		}
 		Page<StuPaper> finAll = stuPaperService.finAll(student);
 		map.put("studentPage", finAll);
