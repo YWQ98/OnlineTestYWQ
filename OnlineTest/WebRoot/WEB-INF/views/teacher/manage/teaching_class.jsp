@@ -133,7 +133,7 @@
 										</tr>
 									</c:if>
 									
-									<c:if test="${pep.getPofstate()==21 }">
+									<c:if test="${pep.getPofstate()!=12 }">
 										<tr>
 											<td>归档</td>
 											<td><a href="${pageContext.request.contextPath }/teacher/manage/pofEX?eid=${pep.getEid() }">取消归档</a></td>
