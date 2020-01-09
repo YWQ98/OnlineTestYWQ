@@ -131,13 +131,13 @@
 					<!-- <button type="button" class="btn btn-default" id="exam_post">提交</button> -->
 					<c:if test="${totaList!=null }">
 						<c:if test="${page!=0 }">
-							<a href="${pageContext.request.contextPath }/teacher/manage/changeScore?eid=${eid }&page=${page-1 }&totalPages=${totalPages }">上一个</a>
+							<a href="${pageContext.request.contextPath }/teacher/manage/changeScore?eid=${eid }&page=${page-1 }&totalPages=${totalPages }">上一份</a>
 						</c:if>
 					</c:if>
 					${page+1 }/${totalPages }
 					<c:if test="${totaList!=null }">
 						<c:if test="${totalPages!=page+1 }">
-							<a href="${pageContext.request.contextPath }/teacher/manage/changeScore?eid=${eid }&page=${page+1 }&totalPages=${totalPages }">下一个</a>
+							<a href="${pageContext.request.contextPath }/teacher/manage/changeScore?eid=${eid }&page=${page+1 }&totalPages=${totalPages }">下一份</a>
 						</c:if>
 					</c:if>
 			</div>
