@@ -312,6 +312,7 @@ public class TeacherManagePageHandler {
 			if(bysjid!=null) 
 			{
 				EPaper ePaper=new EPaper(autorpname, autoscore, "0", autottl, teacher, new Date());
+				ePaper.setPofstate("12");//新增归档状态码
 				ePaperService.save(ePaper);
 				ArrayList<Integer> raList = AutoEPaper.getArrayList(34, 12, 2);//单选随机数
 				ArrayList<Integer> chList = AutoEPaper.getArrayList(33, 12, 2);//多选随机数
