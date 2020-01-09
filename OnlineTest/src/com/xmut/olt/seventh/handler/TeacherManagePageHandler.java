@@ -1,6 +1,5 @@
 package com.xmut.olt.seventh.handler;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,8 +69,8 @@ public class TeacherManagePageHandler {
 	@Autowired
 	private StuPaperDetailService stuPaperDetailService;
 	
-	@ResponseBody
-	@RequestMapping(value="/changeScoreSave",produces = "application/json; charset=utf-8")//改卷--保存成绩
+	@ResponseBody//改卷--保存成绩
+	@RequestMapping(value="/changeScoreSave",produces = "application/json; charset=utf-8")
 	public String changeScoreSave(String dataspdid,String datascore,Map<String, Object> map,HttpSession session) throws Exception {
 		String str="";
 		Teacher teacher = (Teacher) session.getAttribute("teacher");
@@ -264,7 +263,35 @@ public class TeacherManagePageHandler {
 		}else {
 			EPaper byeid = ePaperService.getByeid(eid);
 			Page<StuPaper> finAllStuPaper = stuPaperService.finAllStuPaper(byeid);
+			Integer escore = byeid.getEscore();//试卷总分
+			Integer perfect=escore-(int) (escore*0.1);//优秀
+			Integer good=escore-(int) (escore*0.2);//良
+			Integer pass=escore-(int) (escore*0.4);//及格
+
+			Integer perfectNum=0;//优秀--人数
+			Integer goodNum=0;//良--人数
+			Integer passNum=0;//及格--人数
+			Integer failNum=0;//不及格--人数
+			
+			for (StuPaper stuPaper : finAllStuPaper) {
+				Integer stuScore=stuPaper.getSpscore();//学生得分
+				if(stuScore>=perfect) 
+				{
+					perfectNum+=1;
+				}else if(stuScore>=good){
+					goodNum+=1;
+				}else if(stuScore>=pass){
+					passNum+=1;
+				}else{
+					failNum+=1;
+				}
+			}
 			map.put("finAllStuPaper", finAllStuPaper);
+			
+			map.put("perfectNum", perfectNum);
+			map.put("goodNum", goodNum);
+			map.put("passNum", passNum);
+			map.put("failNum", failNum);
 		}
 		return view;
 	}

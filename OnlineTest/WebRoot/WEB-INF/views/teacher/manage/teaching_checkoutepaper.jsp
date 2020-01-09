@@ -12,6 +12,7 @@
 		<script src="${pageContext.request.contextPath }/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/teacher/public.css" />
 		<script src="${pageContext.request.contextPath }/static/js/teacher/do.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${pageContext.request.contextPath }/static/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
 		<style>
 	        table {
 	            border-collapse: collapse;
@@ -93,13 +94,66 @@
 		</div>
 
 	</div>
-
+	<div id="mydiv" style="width: 1000px; height: 800px; margin: 0 auto;">
+	
  	<script>
         var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementsByTagName("table")[0].outerHTML + "</body></html>";
         var blob = new Blob([html], { type: "application/vnd.ms-excel" });
         var a = document.getElementsByTagName("a")[document.getElementsByTagName("a").length-1];
         a.href = URL.createObjectURL(blob);
         a.download = "学生成绩表.xls";
+        
+        
+        //获取div对象
+			var mydiv=document.getElementById("mydiv");
+			//第一步 初始化echarts，并指定放入div块中
+		    var mycharts=echarts.init(mydiv);
+			 // 第二步，指定图表的配置项和数据		
+		var	option = {
+    title: {
+        text: '成绩分布',
+        subtext: '',
+        left: 'center'
+    },
+    tooltip : {
+        trigger: 'item'
+      
+    },
+     toolbox: {
+        feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        // orient: 'vertical',
+        // top: 'middle',
+        bottom: 10,
+        left: 'center',
+        data: ['优秀', '良','及格','不及格']
+    },
+    series : [
+        {
+            type: 'pie',
+            radius : '65%',
+            center: ['50%', '50%'],
+            selectedMode: 'single',   //一次只能选中一个
+            data:[
+                {value:${perfectNum}, name: '优秀'},
+                {value:${goodNum}, name: '良好'},
+                {value:${passNum}, name: '一般'},
+                {value:${failNum}, name: '较差'},
+            
+            ]
+        }
+    ]
+};
+
+   // 使用刚指定的配置项和数据显示图表。
+        mycharts.setOption(option);
+        
     </script>
 	</body>
 </html>
