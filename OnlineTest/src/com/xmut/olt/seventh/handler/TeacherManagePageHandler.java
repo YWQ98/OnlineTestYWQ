@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-
 import com.xmut.olt.seventh.entity.Answer;
 import com.xmut.olt.seventh.entity.EPaper;
 import com.xmut.olt.seventh.entity.EPaperDetail;
@@ -557,6 +557,9 @@ public class TeacherManagePageHandler {
 //					System.out.println(sjid+"--"+qtid+"--"+qiname+"--"+qiscore+"--"+choice+"--"+answer);
 					map.put("subject", subjectService.findAll());
 					msgItem="添加成功！！！";
+					ServletContext servletContext = session.getServletContext();
+					long attribute = (long)servletContext.getAttribute("countQItem");
+					servletContext.setAttribute("countQItem",attribute+1);
 				}
 			}
 			else if(qtid.equals("2"))
@@ -591,6 +594,9 @@ public class TeacherManagePageHandler {
 //					System.out.println(sjid+"--"+qtid+"--"+qiname+"--"+qiscore+"--"+choice+"--"+answer);
 					map.put("subject", subjectService.findAll());
 					msgItem="添加成功！！！";
+					ServletContext servletContext = session.getServletContext();
+					long attribute = (long)servletContext.getAttribute("countQItem");
+					servletContext.setAttribute("countQItem",attribute+1);
 				}
 			}
 			else if(qtid.equals("3"))
@@ -600,6 +606,9 @@ public class TeacherManagePageHandler {
 				Answer answer = new Answer(item, judge);
 				answerService.save(answer);
 				msgItem="添加成功！！！";
+				ServletContext servletContext = session.getServletContext();
+				long attribute = (long)servletContext.getAttribute("countQItem");
+				servletContext.setAttribute("countQItem",attribute+1);
 			}
 			else if(qtid.equals("4"))
 			{//简答题
@@ -608,6 +617,9 @@ public class TeacherManagePageHandler {
 				Answer answer = new Answer(item, jdanswer);
 				answerService.save(answer);
 				msgItem="添加成功！！！";
+				ServletContext servletContext = session.getServletContext();
+				long attribute = (long)servletContext.getAttribute("countQItem");
+				servletContext.setAttribute("countQItem",attribute+1);
 			}
 			map.put("subject", subjectService.findAll());
 		}

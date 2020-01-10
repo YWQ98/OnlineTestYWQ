@@ -3,6 +3,7 @@ package com.xmut.olt.seventh.handler;
 import java.security.Key;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import com.xmut.olt.seventh.email.Email;
 import com.xmut.olt.seventh.entity.EPaper;
@@ -60,6 +60,9 @@ public class TeacherHandler {
 			map.put("msg", "注册成功，请登录");
 			teacher.settState("0");
 			teacherService.save(teacher, keyMap);
+			ServletContext servletContext = session.getServletContext();
+			long attribute = (long)servletContext.getAttribute("countTeacher");
+			servletContext.setAttribute("countTeacher",attribute+1);
 			session.removeAttribute("emailcode");
 		}else {
 			map.put("msg", "注册失败，请重新注册");

@@ -27,7 +27,11 @@ public class StudentService {
 
 	@Autowired
 	private StudentRepository studentRepository;
-	
+	@Transactional(readOnly=true)
+	public long count() 
+	{
+		return studentRepository.count();
+	}
 	@Transactional(readOnly=true)
 	public Student getBysName(String sName) 
 	{

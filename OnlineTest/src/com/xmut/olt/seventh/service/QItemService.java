@@ -23,7 +23,10 @@ public class QItemService {
 
 	@Autowired
 	private QItemRepository qItemRepository;
-	
+	@Transactional(readOnly=true)
+	public long count() {
+		return qItemRepository.count();
+	}
 	@Transactional
 	public QItem save(QItem qitem) 
 	{

@@ -4,7 +4,7 @@
 
 	<head>
 		<meta charset="utf-8" />
-		<title></title>
+		<title>在线考试系统2.0</title>
 		<script src="${pageContext.request.contextPath }/static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/index/public.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/bootstrap.min.css" />
@@ -71,19 +71,19 @@
 			</div>
 			<div id="teacher">
 				<p>
-					<font color="white" size="6">666位教师共同建设</font>
+					<font color="white" size="6">${applicationScope.countTeacher }位教师共同建设</font>
 				</p>
 			</div>
 
 			<div id="item">
 				<p>
-					<font color="white" size="6">777道高质量题目</font>
+					<font color="white" size="6">${applicationScope.countQItem }道高质量题目</font>
 				</p>
 			</div>
 
 			<div id="user">
 				<p>
-					<font color="white" size="6">9999位注册用户</font>
+					<font color="white" size="6">${applicationScope.countStudent }位注册用户</font>
 				</p>
 			</div>
 			<!-- <div id="botton">

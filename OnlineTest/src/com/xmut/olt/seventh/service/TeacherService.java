@@ -30,7 +30,16 @@ public class TeacherService {
 	
 	
 	
+	/**
+	 * @return long
+	 * @author 叶文清
+	 * @since 2019年1月2日
+	 */
 	
+	@Transactional(readOnly = true)
+	public long count() {
+		return teacherRepository.count();
+	}
 	
 	
 	@Transactional(readOnly=true)
