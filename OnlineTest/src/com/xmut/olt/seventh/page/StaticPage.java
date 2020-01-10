@@ -3,7 +3,7 @@ package com.xmut.olt.seventh.page;
 public final class StaticPage {
 
 	//首页
-	public static final String INDEX="../../index";
+	public static final String INDEX="/index";
 	//管理员登录界面
 	public static final String ADMINLOGINPAGE="admin/loginregister";
 
